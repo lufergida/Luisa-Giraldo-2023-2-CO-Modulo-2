@@ -1,5 +1,6 @@
 import random
-from dino_runner.components.obstacle import Obstacle
+
+from dino_runner.components.obstacles.obstacle import Obstacle
 
 
 class Cactus(Obstacle):
@@ -8,4 +9,8 @@ class Cactus(Obstacle):
         self.type = random.randint(0, 2)
         super().__init__(image, self.type)
         self.rect.y = 325
+        
+    def draw(self, screen):
+        screen.blit(self.image[self.obstacle_type], (self.rect.x, self.rect.y))
+        
     
