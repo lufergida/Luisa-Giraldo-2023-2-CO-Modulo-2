@@ -22,7 +22,8 @@ class Game:
         self.menu = Menu(self.screen, "Press any key to start...")
         self.running = False
         self.score = 0
-        self.death_count = 0
+        self.death_count = 0        
+        self.max_score = 0
 
     def run(self):
         self.playing = True
@@ -52,7 +53,7 @@ class Game:
         user_input = pygame.key.get_pressed()
         self.player.update(user_input)
         self.obstacle_manager.update(self)
-        self.update_score()
+        self.score_status()      
 
     def draw(self):
         self.clock.tick(FPS)
@@ -60,7 +61,7 @@ class Game:
         self.draw_background()
         self.player.draw(self.screen)
         self.obstacle_manager.draw(self.screen)
-        self.draw_score()
+        self.score_status()
         pygame.display.update()
         pygame.display.flip()
 
@@ -81,18 +82,19 @@ class Game:
         if self.death_count == 0:
             self.menu.draw(self.screen)
         else:
-            self.menu.update_message('Dino has died :(')
+            self.menu.update_message(f'Dino has died {self.death_count} times :(')
             self.menu.draw(self.screen)
         self.menu.update(self)
 
-    def update_score(self):
+    def score_status(self):
         self.score += 1
         if self.score % 100 == 0 and self.game_speed < 500:
             self.game_speed += 5
-
-    def draw_score(self):
+        if self.score > self.max_score:
+            self.max_score = self.score
+            
         font = pygame.font.Font(FONT_STYLE, 30)
-        text = font.render(f'Score: {self.score}', True, (0, 0, 0))
+        text = font.render(f'Score: {self.score} | Max Score: {self.max_score}', True, (0, 0, 0))
         text_rect = text.get_rect()
-        text_rect.center = (1000, 50)
+        text_rect.center = (800, 50)
         self.screen.blit(text, text_rect)
