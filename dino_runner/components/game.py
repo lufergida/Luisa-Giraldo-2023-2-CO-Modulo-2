@@ -91,10 +91,11 @@ class Game:
         if self.score % 100 == 0 and self.game_speed < 500:
             self.game_speed += 5
         if self.score > self.max_score:
-            self.max_score = self.score
-            
-        font = pygame.font.Font(FONT_STYLE, 30)
+            self.max_score = self.score  
+        font = pygame.font.SysFont('Monospace', 30)
         text = font.render(f'Score: {self.score} | Max Score: {self.max_score}', True, (0, 0, 0))
         text_rect = text.get_rect()
         text_rect.center = (800, 50)
         self.screen.blit(text, text_rect)
+
+

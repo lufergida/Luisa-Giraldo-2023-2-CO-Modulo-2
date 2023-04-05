@@ -3,14 +3,15 @@ import pygame
 
 from dino_runner.components import obstacles
 from dino_runner.components.obstacles.bird import Bird
+from dino_runner.components.obstacles.cloud import Cloud
 from dino_runner.components.obstacles.cactus import Cactus
-from dino_runner.utils.constants import SMALL_CACTUS, LARGE_CACTUS, BIRD
-
+from dino_runner.utils.constants import SMALL_CACTUS, LARGE_CACTUS, BIRD, CLOUD
 
 
 class ObstacleManager:
   def __init__(self):
     self.obstacles = []
+    self.cloud = self.generate_cloud()
 
   def update(self, game):
     if len(self.obstacles) == 0:
@@ -24,9 +25,13 @@ class ObstacleManager:
         game.death_count += 1
         break
 
+    self.cloud.update(game.game_speed)
+
   def draw(self, screen):
     for obstacle in self.obstacles:
       obstacle.draw(screen)
+
+    self.cloud.draw(screen)
 
   def generate_obstacle(self, obstacle_type):
     if obstacle_type == 0:
@@ -39,6 +44,8 @@ class ObstacleManager:
       obstacle = Bird()
     return obstacle
 
+  def generate_cloud(self):
+    return Cloud()
 
   def reset_obstacles(self):
     self.obstacles = []
