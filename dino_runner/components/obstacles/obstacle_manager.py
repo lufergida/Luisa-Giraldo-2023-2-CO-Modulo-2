@@ -5,7 +5,7 @@ from dino_runner.components import obstacles
 from dino_runner.components.obstacles.bird import Bird
 from dino_runner.components.obstacles.cloud import Cloud
 from dino_runner.components.obstacles.cactus import Cactus
-from dino_runner.utils.constants import SMALL_CACTUS, LARGE_CACTUS, BIRD, CLOUD, SHIELD_TYPE
+from dino_runner.utils.constants import SMALL_CACTUS, LARGE_CACTUS, BIRD, CLOUD, SHIELD_TYPE, HAMMER_TYPE
 
 
 class ObstacleManager:
@@ -27,8 +27,12 @@ class ObstacleManager:
           break
         else:
           self.obstacles.remove(obstacle)
+      if game.player.type == HAMMER_TYPE and pygame.key.get_pressed()[pygame.K_SPACE]:
+        if obstacle.rect.colliderect(game.player.hammer_rect):
+          self.obstacles.remove(obstacle)
 
     self.cloud.update(game.game_speed)
+
 
   def draw(self, screen):
     for obstacle in self.obstacles:
