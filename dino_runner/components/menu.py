@@ -18,8 +18,8 @@ class Menu:
         self.handle_events_on_menu(game)
         pygame.display.update()
     
-    def draw(self, screen, message, x = half_screen_width, y = half_screen_height):
-        self.text = self.font.render(message, True, (0, 0, 0))
+    def draw(self, screen, message = None, x = half_screen_width, y = half_screen_height):
+        self.text = self.font.render( message, True, (0, 0, 0))
         self.text_rect = self.text.get_rect()
         self.text_rect.center = (x, y)
         screen.blit(self.text, self.text_rect)

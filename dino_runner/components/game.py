@@ -80,6 +80,7 @@ class Game:
             self.x_pos_bg = 0
         self.x_pos_bg -= self.game_speed
 
+
     def show_menu(self):
         self.menu.reset_screen_color(self.screen)
         half_screen_width = SCREEN_WIDTH // 2
@@ -88,9 +89,10 @@ class Game:
         if self.death_count == 0:
             self.menu.draw(self.screen, "Welcome to the game!")
         else:
-            self.menu.update_message(f'Dino has died {self.death_count} times :(')
+            self.menu.update_message("")
             self.menu.draw(self.screen, f'Dino has died {self.death_count} times :(')
         self.menu.update(self)
+        
 
     def score_status(self):
         self.score += 1
